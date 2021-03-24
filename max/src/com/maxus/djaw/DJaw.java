@@ -9,7 +9,10 @@ public class DJaw {
     public static void main(String args[]){
         DJMessage("hello world", 0);
     }
-    //method for debug messages
+
+    /*
+    method for debug messages
+    */
     public static void DJMessage(String message, int type /* 0 for debug, 1 for warn, 2 for error, 3 for fatal*/){
         String msg_returner;
         switch (type) {
