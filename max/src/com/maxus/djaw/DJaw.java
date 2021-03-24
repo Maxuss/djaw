@@ -8,6 +8,7 @@ public class DJaw {
     // starting
     public static void main(String[] args){
         DJMessage("Loading DJAW...", 0);
+        GUI.createGUI();
     }
 
     /*

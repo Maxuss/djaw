@@ -1,11 +1,16 @@
 package com.maxus.djaw.gui;
 
+import com.maxus.djaw.DJaw;
 import javax.swing.*;
 import java.awt.*;
 
 public class GUI {
-    public static void main(String args[]) {
+    public static void main(String[] args) {
+        createGUI();
+    }
 
+    public static void createGUI(){
+        DJaw.DJMessage("Loading GUI...", 0);
         //create frame
         JFrame frame = new JFrame("djaw_dev_pre_GUI_0.0.015");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,10 +38,10 @@ public class GUI {
         panel.add(send);
         panel.add(reset);
 
-        // Text Area at the Center
+        // text at center
         JTextArea ta = new JTextArea();
 
-        //Adding Components to the frame.
+        // compiling
         frame.getContentPane().add(BorderLayout.SOUTH, panel);
         frame.getContentPane().add(BorderLayout.NORTH, mb);
         frame.getContentPane().add(BorderLayout.CENTER, ta);
