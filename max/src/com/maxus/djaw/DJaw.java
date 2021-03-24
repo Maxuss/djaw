@@ -1,13 +1,13 @@
 package com.maxus.djaw;
 
-
+import com.maxus.djaw.gui.GUI;
 
 // main class
 public class DJaw {
 
     // starting
-    public static void main(String args[]){
-        DJMessage("hello world", 0);
+    public static void main(String[] args){
+        DJMessage("Loading DJAW...", 0);
     }
 
     /*
@@ -16,22 +16,23 @@ public class DJaw {
     public static void DJMessage(String message, int type /* 0 for debug, 1 for warn, 2 for error, 3 for fatal*/){
         String msg_returner;
         switch (type) {
-            case(0):
-                msg_returner = "[DJAW] -DEBUG > " + message;
+            case 0:
+                msg_returner = "[DJAW] -DEBUG- > " + message;
                 break;
-            case(1):
-                msg_returner = "[DJAW] -WARNING > " + message;
+            case 1:
+                msg_returner = "[DJAW] -WARNING- > " + message;
                 break;
-            case(2):
-                msg_returner = "[DJAW] -ERROR > " + message;
+            case 2:
+                msg_returner = "[DJAW] -ERROR- > " + message;
                 break;
-            case(3):
-                msg_returner = "[DJAW] -FATAL_ERROR > " + message;
+            case 3:
+                msg_returner = "[DJAW] -FATAL_ERROR- > " + message;
                 break;
             default:
                 msg_returner = "[DJAW] > " + message;
                 break;
         }
         System.out.println(msg_returner);
+
     }
 }
