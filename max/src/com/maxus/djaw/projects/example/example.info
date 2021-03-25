@@ -1,0 +1,14 @@
+{
+  "compiler": "djaw",
+  "dep": {
+    "dependantOn": null,
+    "dependsOn": ["djaw-comp"]
+  },
+  "locs": {
+    "pkg-main": "com.maxus.djaw",
+    "pkg-djs-main": ".djs",
+    "pkg-sgr": ".sgr"
+  },
+  "?log": false,
+  "log-loc": ".tmp"
+}

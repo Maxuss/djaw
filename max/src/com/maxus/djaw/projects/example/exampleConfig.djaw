@@ -1,0 +1,11 @@
+{
+  "runData": {
+    "windowed": true,
+    "normal": "windowed"
+  },
+  "storeCookies": false,
+  "settings": {
+    "djawType": "fast",
+    "ram-allocated": "2000"
+  }
+}
