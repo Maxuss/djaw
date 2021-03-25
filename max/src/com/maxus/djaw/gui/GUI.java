@@ -6,6 +6,7 @@ import java.awt.*;
 
 public class GUI {
     public static void main(String[] args) {
+        DJaw.DJMessage("GUI SETUP", 0);
         createGUI();
     }
 
@@ -33,7 +34,7 @@ public class GUI {
         JTextField tf = new JTextField(10); // accepts 10 chars
         JButton send = new JButton("test2");
         JButton reset = new JButton("editor");
-        panel.add(label); // Components Added using Flow Layout
+        panel.add(label); // flow layout
         panel.add(tf);
         panel.add(send);
         panel.add(reset);
