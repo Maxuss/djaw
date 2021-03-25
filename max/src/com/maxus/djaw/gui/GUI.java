@@ -3,6 +3,7 @@ package com.maxus.djaw.gui;
 import com.maxus.djaw.DJaw;
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
 
 public class GUI {
     public static void main(String[] args) {
@@ -11,9 +12,12 @@ public class GUI {
     }
 
     public static void createGUI(){
+        URL iconURL = GUI.class.getResource("/com/maxus/djaw/gui/favicon.png");
+        ImageIcon icon = new ImageIcon(iconURL);
         DJaw.DJMessage("Loading GUI...", 0);
         //create frame
         JFrame frame = new JFrame("djaw_dev_pre_GUI_0.0.015");
+        frame.setIconImage(icon.getImage());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 400);
 
@@ -41,6 +45,7 @@ public class GUI {
 
         // text at center
         JTextArea ta = new JTextArea();
+
 
         // compiling
         frame.getContentPane().add(BorderLayout.SOUTH, panel);
