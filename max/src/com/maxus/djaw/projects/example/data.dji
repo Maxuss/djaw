@@ -1,16 +1,3 @@
-# **FORMATS FOR CREATING YOUR OWN PROJECTS** 
-**NOTE THAT PROJECT IS STILL IN WIP!!!**
-
-You need only one JSON-like file to create.
-Go to `projects/<projectname>/` and create file `data.dji`
-
-What does `.dji` mean? **DJ**aw **I**nformation of course!
-
-File requires JSON syntax!
-This is just an example
-
-`data.dji` =>
-```json
 {
   "_comment": "these comments wont parse",
 
@@ -42,15 +29,3 @@ This is just an example
   "projectWebsite": "example.com"
 
 }
-```
-
-So that's all I guess.
-Also, something for you to note.
-
-`dunjerCache/djawCache/devjawCache` are all needed for saving some data locally.
-
-`package` is your main package.
-
-`mainClass` and `exceptionClass` are classes needed for the engine to see your classes.
-
-Check `documentation.md` for some more info!

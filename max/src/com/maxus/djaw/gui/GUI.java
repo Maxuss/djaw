@@ -3,7 +3,13 @@ package com.maxus.djaw.gui;
 import com.maxus.djaw.DJaw;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.awt.Desktop;
+import java.net.URI;
 
 public class GUI {
     public static void main(String[] args) {
@@ -12,45 +18,39 @@ public class GUI {
     }
 
     public static void createGUI(){
-        URL iconURL = GUI.class.getResource("/com/maxus/djaw/gui/favicon.png");
+        URL iconURL = GUI.class.getResource("/com/maxus/djaw/gui/icon.png");
         ImageIcon icon = new ImageIcon(iconURL);
         DJaw.DJMessage("Loading GUI...", 0);
         //create frame
-        JFrame frame = new JFrame("djaw_dev_pre_GUI_0.0.015");
+        JFrame frame = new JFrame("DJaw Menu");
         frame.setIconImage(icon.getImage());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 400);
+        frame.setSize(500, 130);
 
-        //create menu
-        JMenuBar mb = new JMenuBar();
-        JMenu m1 = new JMenu("button1");
-        JMenu m2 = new JMenu("button2");
-        mb.add(m1);
-        mb.add(m2);
-        JMenuItem m11 = new JMenuItem("button3");
-        JMenuItem m22 = new JMenuItem("all buttons do not do anything yet");
-        m1.add(m11);
-        m1.add(m22);
-
-        //create panel
-        JPanel panel = new JPanel(); // the panel is not visible in output
-        JLabel label = new JLabel("text_send_test");
-        JTextField tf = new JTextField(10); // accepts 10 chars
-        JButton send = new JButton("test2");
-        JButton reset = new JButton("editor");
-        panel.add(label); // flow layout
-        panel.add(tf);
-        panel.add(send);
-        panel.add(reset);
-
-        // text at center
-        JTextArea ta = new JTextArea();
-
+        JPanel panel = new JPanel();
+        JLabel text1 = new JLabel("Sorry,but DJaw currently only supports\n creating projects by coding them yourself!\n");
+        JLabel text2 = new JLabel("Please check our documentation.md,\n to find out how everything works. Thanks!\n");
+        panel.add(text1);
+        panel.add(text2);
+        JPanel panel2 = new JPanel();
+        JButton button = new JButton("Got it! Take me to this file!");
+        panel2.add(button);
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                    try {
+                        Desktop.getDesktop().browse(new URI("https://github.com/Maxuss/djaw/blob/main/documentation.md"));
+                    } catch (IOException | URISyntaxException ioException) {
+                        ioException.printStackTrace();
+                    }
+                }
+            }
+        });
 
         // compiling
-        frame.getContentPane().add(BorderLayout.SOUTH, panel);
-        frame.getContentPane().add(BorderLayout.NORTH, mb);
-        frame.getContentPane().add(BorderLayout.CENTER, ta);
+        frame.getContentPane().add(BorderLayout.CENTER, panel);
+        frame.getContentPane().add(BorderLayout.SOUTH, panel2);
         frame.setVisible(true);
     }
 }
