@@ -20,19 +20,19 @@ includes simple json
  * @author maxus
  */
 public class DJWParser {
-    private static String path = System.getProperty("user.dir");
+    private static final String path = System.getProperty("user.dir");
     public static void main(String[] args){
         DJaw.DJMessage("Loading data from " + path, 0);
         Map map = ConnectData();
-        Portfolio data = (Portfolio) map.get("example");
-        System.out.println(data.author);
+        Portfolio data = (Portfolio) map.get("maxs");
+        System.out.println(data.credits);
     }
 
     public static JSONObject ParseDJI(String project_name)
     {
         JSONParser parser = new JSONParser();
         try {
-            String filename = "max/src/com/maxus/djaw/projects/" + project_name + "/data.dji";
+            String filename = path +"\\projects\\"+ project_name + "\\data.dji";
             Object obj = parser.parse(new FileReader(filename));
             JSONObject file = (JSONObject) obj;
             String msg = "Loaded DJaw Project using data.dji. ProjectID: " + file.get("projectID").toString();
@@ -99,13 +99,13 @@ public class DJWParser {
      * @see DJWParser
      */
     public static String[] FindProjects(){
-        File[] directories = new File("max/src/com/maxus/djaw/projects").listFiles(File::isDirectory);
+        File[] directories = new File(path + "\\projects\\").listFiles(File::isDirectory);
         String[] dirs = new String[directories.length];
         System.out.println(directories.length);
         for(int i = 0; i < directories.length ; i++){
             dirs[i] = directories[i].getName();
         }
-        System.out.println(dirs[1]);
+        System.out.println(dirs[0]);
         String msg = "Found following projects " + Arrays.toString(dirs);
         DJaw.DJMessage(msg, 0);
         return dirs;
