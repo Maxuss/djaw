@@ -28,8 +28,8 @@ public class GUI {
         frame.setSize(500, 130);
 
         JPanel panel = new JPanel();
-        JLabel text1 = new JLabel("Sorry,but DJaw currently only supports\n creating projects by coding them yourself!\n");
-        JLabel text2 = new JLabel("Please check our documentation.md,\n to find out how everything works. Thanks!\n");
+        JLabel text1 = new JLabel("Sorry, but DJaw currently only supports\ncreating projects by coding them yourself!\n");
+        JLabel text2 = new JLabel("Please check our documentation.md,\nto find out how everything works. Thanks!\n");
         panel.add(text1);
         panel.add(text2);
         JPanel panel2 = new JPanel();
