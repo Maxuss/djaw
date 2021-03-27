@@ -120,7 +120,7 @@ public class ProjectCreator {
             String ppn = packageName.getText();
             String pmc = mainClass.getText();
             String pc = credits.getText();
-            String pw = credits.getText();
+            String pw = website.getText();
             dump(pname, pdesc, pcn, pid, ppn, pmc, pc, pw, pid);
             popup("Creation successful!", "You have successfully created a new\n project at '" + path + "\\projects'! Check it out!");
         });
