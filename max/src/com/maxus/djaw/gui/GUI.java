@@ -3,8 +3,6 @@ package com.maxus.djaw.gui;
 import com.maxus.djaw.DJaw;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -35,15 +33,12 @@ public class GUI {
         JPanel panel2 = new JPanel();
         JButton button = new JButton("Got it! Take me to this file!");
         panel2.add(button);
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
-                    try {
-                        Desktop.getDesktop().browse(new URI("https://github.com/Maxuss/djaw/blob/main/documentation.md"));
-                    } catch (IOException | URISyntaxException ioException) {
-                        ioException.printStackTrace();
-                    }
+        button.addActionListener(e -> {
+            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                try {
+                    Desktop.getDesktop().browse(new URI("https://github.com/Maxuss/djaw/blob/main/documentation.md"));
+                } catch (IOException | URISyntaxException ioException) {
+                    ioException.printStackTrace();
                 }
             }
         });
