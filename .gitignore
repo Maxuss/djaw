@@ -26,3 +26,4 @@ hs_err_pid*
 *.env
 **DJT.java
 .idea/
+/artifacts/
