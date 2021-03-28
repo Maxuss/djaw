@@ -1,6 +1,9 @@
 # **FORMATS FOR CREATING YOUR OWN PROJECTS** 
 **NOTE THAT PROJECT IS STILL IN WIP!!!**
 
+### **EDIT**
+Since update v.0.9.5.4 you can create simple configuration in the program!
+
 You need only one JSON-like file to create.
 Go to `projects/<projectname>/` and create file `data.dji`
 

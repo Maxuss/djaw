@@ -8,10 +8,8 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.awt.Desktop;
 import java.net.URI;
-import com.maxus.djaw.gui.ProjectCreator;
 
 public class GUI {
-    public static final String path = System.getProperty("user.dir");
     public static void main(String[] args) {
         DJaw.DJMessage("GUI SETUP", 0);
         createGUI();
@@ -28,7 +26,7 @@ public class GUI {
         JFrame frame = new JFrame("DJaw Menu");
         frame.setIconImage(icon.getImage());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(600, 160);
+        frame.setSize(700, 160);
 
         JPanel panel = new JPanel();
         JLabel text1 = new JLabel("You can create a simple project formation! But you have to use coding skills for creating a serious project. ");
@@ -38,9 +36,10 @@ public class GUI {
         JPanel panel2 = new JPanel();
         JButton button = new JButton("Got it! Take me to this file!");
         panel2.add(button);
-        JPanel panel3 = new JPanel();
         JButton button1 = new JButton("I want to configure a small project!");
-        panel3.add(button1);
+        panel2.add(button1);
+        JButton button2 = new JButton("View available projects");
+        panel2.add(button2);
         button.addActionListener(e -> {
                     if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
                         try {
@@ -51,14 +50,45 @@ public class GUI {
                     }
                 });
         button1.addActionListener(a ->{
-            frame.dispose();
             ProjectCreator.createAnotherWindow();
         });
-
+        button2.addActionListener(event ->{
+            ProjectCreator.showAvailableProjects();
+        });
         // compiling
         frame.getContentPane().add(BorderLayout.CENTER, panel);
-        frame.getContentPane().add(BorderLayout.NORTH, panel2);
-        frame.getContentPane().add(BorderLayout.SOUTH, panel3);
+        frame.getContentPane().add(BorderLayout.SOUTH, panel2);
         frame.setVisible(true);
+    }
+    public static void popup(String title, String message){
+        final Runnable runnable =
+                (Runnable) Toolkit.getDefaultToolkit().getDesktopProperty("win.sound.exclamation");
+        if (runnable != null) runnable.run();
+        String pathToIcon = "/com/maxus/djaw/gui/icon.png";
+        URL iconURL = GUI.class.getResource(pathToIcon);
+        ImageIcon icon = new ImageIcon(iconURL);
+
+
+
+        JLabel text = new JLabel(message);
+        JDialog popup = new JDialog();
+        JButton button = new JButton("OK");
+        JPanel panel = new JPanel();
+        JPanel panel2 = new JPanel();
+        button.addActionListener(evt -> {
+            popup.dispose();
+
+        });
+
+        popup.setTitle(title);
+        panel2.add(text);
+        panel.add(button);
+        popup.getContentPane().add(BorderLayout.SOUTH, panel);
+        popup.getContentPane().add(BorderLayout.CENTER, panel2);
+        popup.setIconImage(icon.getImage());
+        popup.setVisible(true);
+        popup.setSize(700, 100);
+        popup.setLocation(500, 500);
+        popup.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     }
 }

@@ -13,8 +13,12 @@ public class DJaw {
         DJWParser.ConnectData();
     }
 
-    /*
+    /**
     method for debug messages
+     0 for debug,
+     1 for warn,
+     2 for error,
+     3 for fatal
     */
     public static void DJMessage(String message, int type /* 0 for debug, 1 for warn, 2 for error, 3 for fatal*/){
         String msg_returner;

@@ -32,7 +32,7 @@ public class DJWParser {
     {
         JSONParser parser = new JSONParser();
         try {
-            String filename = path +"\\projects\\"+ project_name + "\\data.dji";
+            String filename = path +"\\djaw\\projects\\"+ project_name + "\\data.dji";
             Object obj = parser.parse(new FileReader(filename));
             JSONObject file = (JSONObject) obj;
             String msg = "Loaded DJaw Project using data.dji. ProjectID: " + file.get("projectID").toString();
@@ -52,18 +52,18 @@ public class DJWParser {
      *
      **/
     public static class Portfolio{
-        String name;
-        String id;
-        String ver;
-        String description;
-        String author;
-        String credits;
-        String language;
-        String website;
-        boolean[] cache = new boolean[3];
-        String compiler;
-        String classname;
-        String eClassname;
+        public String name;
+        public String id;
+        public String ver;
+        public String description;
+        public String author;
+        public String credits;
+        public String language;
+        public String website;
+        public boolean[] cache = new boolean[3];
+        public String compiler;
+        public String classname;
+        public String eClassname;
     }
 
     /**
@@ -75,7 +75,6 @@ public class DJWParser {
         // creating all the needed objects
         Portfolio OD = new Portfolio();
         JSONObject File = ParseDJI(filename);
-
         // writing data to objects
         OD.name = (String) File.get("projectName");
         OD.author = (String) File.get("projectAuthor");
@@ -99,7 +98,7 @@ public class DJWParser {
      * @see DJWParser
      */
     public static String[] FindProjects(){
-        File[] directories = new File(path + "\\projects\\").listFiles(File::isDirectory);
+        File[] directories = new File(path + "\\djaw\\projects\\").listFiles(File::isDirectory);
         String[] dirs = new String[directories.length];
         System.out.println(directories.length);
         for(int i = 0; i < directories.length ; i++){

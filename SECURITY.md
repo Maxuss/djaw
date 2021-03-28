@@ -2,14 +2,11 @@
 
 ## Supported Versions
 
-nothing yet
 | Version | Supported          |
 | ------- | ------------------ |
-| 0.0.x   | :x:                |
-| 0.0.x   | :x:                |
-| 0.0.x   | :x:                |
-| < 0.0   | :x:                |
+| >0.7.x  | Yes                |
+| <0.7.x  | No                 |
 
 ## Reporting a Vulnerability
 
-create an issue lol
+Create an issue
