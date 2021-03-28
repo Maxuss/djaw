@@ -9,7 +9,7 @@ _DJDAS_ aren't necessary, but code looks better with them
 ```json
 {
   "commonLicence": "GNU General v3.0",
-  "compatibility": "1.0.0.0", // DJaw version, on which project was created here
+  "compatibility": "1.0.0.0",
   "projectMeta": "djaw-project-common",
   "projectSignature": "your-custom-project-signature"
 }
