@@ -11,4 +11,5 @@ DungeonJaw or DJaw, is Game Engine based on Java.
 
 ## Useful links:
 #### [Documentation on creation projects](https://github.com/Maxuss/djaw/blob/main/documentation.md)
+#### [API Documentation](https://github.com/Maxuss/djaw/blob/main/api.md)
 #### [Documentation on formatting `*.dji` data](https://github.com/Maxuss/djaw/blob/main/format.md)
