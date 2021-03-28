@@ -1,16 +1,14 @@
 package com.maxus.djaw.engine;
-import com.maxus.djaw.DJaw;
-import org.json.simple.JSONObject;
 
+import com.maxus.djaw.DJaw;
+import com.maxus.djaw.gui.ProjectCreator;
+import org.json.simple.JSONObject;
+import javax.swing.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-
 import static com.maxus.djaw.gui.ProjectCreator.createDirectory;
+
 
 
 /**
@@ -63,7 +61,6 @@ public class Engine {
     public static final String path = System.getProperty("user.dir");
     public static void main(String[] args){
         DJaw.DJMessage("Pre-initializing engine", 0);
-        Start();
     }
 
     /**
@@ -72,57 +69,56 @@ public class Engine {
      * @see Engine
      * @return GUI
      **/
-    public static void Start(){
+    @SuppressWarnings("unused")
+    public static void Start(JFrame frame){
+        frame.setVisible(true);
         DJaw.DJMessage("Starting engine", 0);
     }
     /**
      * <h2>DJaw Engine</h2>
      * Stops the engine
      * **/
-    public static void Stop(){
-
+    @SuppressWarnings("unused")
+    public static void Stop(JFrame frame){
+        frame.dispose();
+        DJaw.DJMessage("Stopping the engine...", 1);
     }
     /**
      * <h2>DJaw Engine</h2>
-     * Main class for items
+     * Main class for creations of any kind of stuff
+     * Currently only supports 'item', 'build', 'mob' types of items
      * **/
-    public static class Item{
+    @SuppressWarnings("unused")
+    public static class Creation{
         public static void main(String[] args){
-            Item.Create("test", "Item Test", "TEst ITEM");
+            Creation.Create("test", "Item Test", "TEst ITEM", "item");
+            JSONObject obj = ProjectCreator.ESObjDump("build", "test","test", "creationDesk");
+            Creation.Modify("test-creation", obj, "mob");
         }
         private static FileWriter file;
+
         /**
-         * <h2>DJawEngine.Item</h2>
-         * Creates item in <path>\djaw\items</path> folder, and pastes ImageTexture into <path>\djaw\textures</path>.
-         * <br>Item will have a .dji file named with ItemID. ItemID <b>DOES NOT ALLOW SPACES</b>
-         * @param ItemID - ID of item. Does not allow spacebars.
-         * @param ItemName - Name of item. Allows spacebars.
-         * @param ItemDescription - Description of item. Allows spacebars.
+         * <h2>DJawEngine.Creation</h2>
+         * Creates item in <path>\djaw\creates</path> folder.
+         * <br>Creation will have a .dji file named with CreateID. CreateID <b>DOES NOT ALLOW SPACES</b>
+         * @param CreateID - ID of creation. Does not allow spacebars.
+         * @param CreateName - Name of creation. Allows spacebars.
+         * @param CreateDescription - Description of creation. Allows spacebars.
+         * @param type supports 'mob', 'item', 'build'
          **/
-        @SuppressWarnings("unchecked")
-        public static void Create(
-                String ItemID, String ItemName, String ItemDescription
-        )
+
+        public static void Create(String CreateID, String CreateName, String CreateDescription, String type)
         {
             // create a new json obj
-            JSONObject obj = new JSONObject();
-            JSONObject abilities = new JSONObject();
-
-            abilities.put("abilityClass", null);
-            abilities.put("creator", null);
-
-            obj.put("itemID", ItemID);
-            obj.put("itemDescription", ItemDescription);
-            obj.put("itemName", ItemName);
-            obj.put("itemAbilities", abilities);
-
+            JSONObject obj = ProjectCreator.ESObjDump(type, CreateID,CreateDescription, CreateName);
             try {
-                File directory = createDirectory(path+"\\djaw\\items\\");
+                File directory = createDirectory(path+"\\djaw\\"+type+"s\\");
                 System.out.println(directory);
-                File tmp = new File(directory, ItemID + ".dji");
-                tmp.createNewFile();
+                File tmp = new File(directory, CreateID + ".dji");
+                boolean a = tmp.createNewFile();
+                System.out.println(a);
                 DJaw.DJMessage("Created a DJI File!", 0);
-                file = new FileWriter(directory+ "\\"+ItemID+".dji");
+                file = new FileWriter(directory+ "\\"+CreateID+".dji");
                 file.write(obj.toJSONString());
                 System.out.println(file);
             } catch (IOException e) {
@@ -138,5 +134,53 @@ public class Engine {
                 }
             }
         }
+        /**
+         * <h2>DJawEngine.Creation</h2>
+         * Deletes something in <path>\djaw\creates</path> folder.
+         * @param CreateID  ID creation. Does not allow spacebars.
+         * @param type supports 'mob', 'item', 'build'
+         **/
+        public static void Disband(String CreateID, String type){
+            try {
+                File directory = createDirectory(path+"\\djaw\\"+type+"s\\");
+                System.out.println(directory);
+                File tmp = new File(directory, CreateID + ".dji");
+                boolean a = tmp.delete();
+                System.out.println(a);
+                DJaw.DJMessage("Deleted a DJI File!", 0);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        /**
+         * <h2>DJawEngine.Creation</h2>
+         * Modifies enemy data in <path>\djaw\create</path> folder.
+         * @param CreateID  ID of creation. Does not allow spacebars.
+         * @param Modificated  JSONObject with new data.
+         * @param type supports 'mob', 'item', 'build'
+         **/
+        public static void Modify(String CreateID, JSONObject Modificated, String type){
+            try {
+                File directory = createDirectory(path+"\\djaw\\"+type+"s");
+                System.out.println(directory);
+                DJaw.DJMessage("Created a DJI File!", 0);
+                file = new FileWriter(directory+"\\"+CreateID+".dji");
+                file.write(Modificated.toJSONString());
+                System.out.println(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+
+            } finally {
+
+                try {
+                    file.flush();
+                    file.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
+
+
 }

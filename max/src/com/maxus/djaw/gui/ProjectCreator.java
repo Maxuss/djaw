@@ -6,6 +6,7 @@ import java.awt.*;
 import java.io.*;
 import java.net.URL;
 
+import com.maxus.djaw.ParseTypes;
 import com.maxus.djaw.parse.DJWParser;
 import com.maxus.djaw.parse.DJWParser.Portfolio;
 
@@ -15,17 +16,36 @@ import java.util.Map;
 
 
 public class ProjectCreator {
-    private static String path = System.getProperty("user.dir");
+    private static final String path = System.getProperty("user.dir");
     private static FileWriter file;
     public static void main(String[] args){
         DJaw.DJMessage("Loading ProjectCreator...", 0);
+        createClassAndPackage("com.test.lol", "ClassExample", "test_project");
     }
     @SuppressWarnings("unchecked")
-    public static void dump(
-            String name, String description, String creator, String ID,
-            String packageName, String mainClass, String credits, String website, String version, String language,
-            String filename
-        ){
+    public static JSONObject ESObjDump(
+            String type, String ID, String Description, String Name
+    ){
+        JSONObject obj = new JSONObject();
+        JSONObject abilities = new JSONObject();
+
+        abilities.put("abilityClass", null);
+        abilities.put("creator", null);
+
+        obj.put(type+"ID", ID);
+        obj.put(type+"Description", Description);
+        obj.put(type+"Name", Name);
+        obj.put(type+"Abilities", abilities);
+
+        return obj;
+    }
+    @SuppressWarnings("unchecked")
+    public static JSONObject objDump(
+        String name, String description, String creator, String ID,
+        String packageName, String mainClass, String credits,
+        String website, String version, String language
+        )
+    {
         JSONObject obj = new JSONObject();
 
         obj.put("normalSignature", "classical_unstable");
@@ -51,12 +71,20 @@ public class ProjectCreator {
         obj.put("projectLanguage", language);
         obj.put("projectWebsite", website);
         obj.put("projectVersion", version);
+        return obj;
+    }
+    public static void dump(
+            String name, String description, String creator, String ID,
+            String packageName, String mainClass, String credits, String website, String version, String language,
+            String filename
+        ){
+        JSONObject obj = objDump(name, description, creator, ID, packageName, mainClass, credits, website, version, language);
 
         try {
             File directory = createDirectory(path+"\\djaw\\projects\\"+filename+"\\");
             System.out.println(directory);
             File tmp = new File(directory, "data.dji");
-            tmp.createNewFile();
+            System.out.println(tmp.createNewFile());
             DJaw.DJMessage("Created a DJI File!", 0);
             file = new FileWriter(directory+"\\data.dji");
             file.write(obj.toJSONString());
@@ -139,9 +167,7 @@ public class ProjectCreator {
             dump(pname, pdesc, pcn, pid, ppn, pmc, pc, pw, pv, pl, pid);
             GUI.popup("Creation successful!", "You have successfully created a new\n project at '" + path + "\\djaw\\projects\\"+pid+"'! Check it out!");
         });
-        button2.addActionListener(evt -> {
-            frame.dispose();
-        });
+        button2.addActionListener(evt -> frame.dispose());
         frame.getContentPane().add(BorderLayout.CENTER, panel);
         frame.getContentPane().add(BorderLayout.SOUTH, panel1);
         frame.getContentPane().add(BorderLayout.NORTH, panel2);
@@ -161,11 +187,12 @@ public class ProjectCreator {
         frame.setSize(600, 300);
         JPanel panel = new JPanel();
         JPanel _2 = new JPanel();
-        StringBuilder foundprojects = new StringBuilder(" ");
+        StringBuilder found_projects = new StringBuilder(" ");
+        System.out.println(found_projects);
         try {
             String[] projects = DJWParser.FindProjects();
             for (String project : projects) {
-                foundprojects.append(project).append(", ");
+                found_projects.append(project).append(", ");
                 JButton projectButton = new JButton(project);
                 _2.add(projectButton);
                 projectButton.addActionListener(e -> {
@@ -182,9 +209,7 @@ public class ProjectCreator {
         panel.add(label1);
         JPanel _3 = new JPanel();
         JButton button = new JButton("OK");
-        button.addActionListener(e -> {
-            frame.dispose();
-        });
+        button.addActionListener(e -> frame.dispose());
         _3.add(button);
         frame.getContentPane().add(BorderLayout.NORTH, panel);
         frame.getContentPane().add(BorderLayout.CENTER, _2);
@@ -212,9 +237,71 @@ public class ProjectCreator {
         frame.getContentPane().add(BorderLayout.CENTER,panel);
         frame.setVisible(true);
     }
+    public static void windowCCAP(){
+        String pathToIcon = "/com/maxus/djaw/gui/icon.png";
+        URL iconURL = GUI.class.getResource(pathToIcon);
+        ImageIcon icon = new ImageIcon(iconURL);
+        DJaw.DJMessage("Loading GUI...", 0);
 
-    public static void copyDJawProject(){
-        JSONObject copyable = DJWParser.OldParseDJI();
+        //create frame
+        JFrame frame = new JFrame("Create new DJaw Class");
+        frame.setIconImage(icon.getImage());
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(600, 300);
+        JPanel panel = new JPanel();
+        JPanel panel2 = new JPanel();
+        JLabel select = new JLabel("Select one of existing projects to generate class and package for");
+        panel.add(select);
+        try {
+            String[] projects = DJWParser.FindProjects();
+            for (String project : projects) {
+                Portfolio prt = DJWParser.Data(project);
+                JButton projectButton = new JButton(project);
+                panel2.add(projectButton);
+                String pack = "com."+prt.id+".djaw";
+                projectButton.addActionListener(e -> {
+                    frame.dispose();
+                    createClassAndPackage(pack, prt.classname, prt.id);
+                });
+            }
+        } catch(NullPointerException e) {
+            DJaw.DJMessage(e.toString(), 1);
+            GUI.popup("ERROR", "Projects not found! Create a new project, to see it!");
+        }
+        frame.getContentPane().add(BorderLayout.NORTH, panel);
+        frame.getContentPane().add(BorderLayout.CENTER, panel2);
+        frame.setVisible(true);
+    }
 
+    public static void createClassAndPackage(String packageName, String className, String projectID){
+        String full = "\\src\\" + packageName.replace(".","\\");
+
+        String SampleCode =  "package djaw.projects." + projectID + "." + packageName + ";\nimport com.maxus.djaw.DJaw;\n//TODO Auto-Generated file\npublic static class "+className+"{\n  public static void main(String[] args){\n    }\n}";
+
+        try {
+            File directory = createDirectory(path+"\\djaw\\projects\\"+projectID);
+            System.out.println(directory);
+            File directory1 = createDirectory(directory+full);
+            System.out.println(directory);
+            File tmp = new File(directory1, className + ".java");
+            boolean a = tmp.createNewFile();
+            System.out.println(a);
+            DJaw.DJMessage("Created a JAVA CLASS File!", 0);
+            file = new FileWriter(directory1+ "\\"+className+".java");
+            file.write(SampleCode);
+            System.out.println(file);
+            GUI.popup("Done!","Successfully generated a class and package for "+projectID);
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        } finally {
+
+            try {
+                file.flush();
+                file.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

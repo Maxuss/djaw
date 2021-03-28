@@ -36,10 +36,12 @@ public class GUI {
         JPanel panel2 = new JPanel();
         JButton button = new JButton("Get me to documentation");
         panel2.add(button);
-        JButton button1 = new JButton("I want to confiп a small project!");
+        JButton button1 = new JButton("I want to config a small project!");
         panel2.add(button1);
         JButton button2 = new JButton("View project configs");
         panel2.add(button2);
+        JButton button3 = new JButton("Generate class for a project");
+        panel2.add(button3);
         button.addActionListener(e -> {
                     if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
                         try {
@@ -49,12 +51,9 @@ public class GUI {
                         }
                     }
                 });
-        button1.addActionListener(a ->{
-            ProjectCreator.createAnotherWindow();
-        });
-        button2.addActionListener(event ->{
-            ProjectCreator.showAvailableProjects();
-        });
+        button1.addActionListener(a -> ProjectCreator.createAnotherWindow());
+        button2.addActionListener(event -> ProjectCreator.showAvailableProjects());
+        button3.addActionListener(evt -> ProjectCreator.windowCCAP());
         // compiling
         frame.getContentPane().add(BorderLayout.CENTER, panel);
         frame.getContentPane().add(BorderLayout.SOUTH, panel2);
@@ -75,10 +74,7 @@ public class GUI {
         JButton button = new JButton("OK");
         JPanel panel = new JPanel();
         JPanel panel2 = new JPanel();
-        button.addActionListener(evt -> {
-            popup.dispose();
-
-        });
+        button.addActionListener(evt -> popup.dispose());
 
         popup.setTitle(title);
         panel2.add(text);

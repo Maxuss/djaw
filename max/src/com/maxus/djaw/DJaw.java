@@ -15,7 +15,6 @@ public class DJaw {
         Condition("customCondition");
         GUI.createGUI();
         DJWParser.ConnectData();
-        Engine.Start();
         ProjectCreator.main(args);
     }
 

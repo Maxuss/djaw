@@ -23,9 +23,6 @@ public class DJWParser {
     private static final String path = System.getProperty("user.dir");
     public static void main(String[] args){
         DJaw.DJMessage("Loading data from " + path, 0);
-        Map map = ConnectData();
-        Portfolio data = (Portfolio) map.get("maxs");
-        System.out.println(data.credits);
     }
 
     public static JSONObject ParseDJI(String project_name)
@@ -49,6 +46,21 @@ public class DJWParser {
         JSONParser parser = new JSONParser();
         try {
             String filename = "/com/maxus/djaw/examples/djwen/data.dji";
+            Object obj = parser.parse(new FileReader(filename));
+            JSONObject file = (JSONObject) obj;
+            String msg = "Loaded DJaw Project using data.dji. ProjectID: " + file.get("projectID").toString();
+            DJaw.DJMessage(msg, 0);
+            return file;
+        } catch (Exception error) {
+            error.printStackTrace();
+            return new JSONObject();
+        }
+    }
+    public static JSONObject CustomParseDJI(String filepath)
+    {
+        JSONParser parser = new JSONParser();
+        try {
+            String filename = filepath;
             Object obj = parser.parse(new FileReader(filename));
             JSONObject file = (JSONObject) obj;
             String msg = "Loaded DJaw Project using data.dji. ProjectID: " + file.get("projectID").toString();

@@ -12,9 +12,9 @@ public class ExampleClass {
     public static void main(String[] args){
         // generate an item
         // item finishes generating only after closing the window for some reason tho
-        Engine.Item.Create(
+        Engine.Creation.Create(
                 "custom-item", "Custom Item Example",
-                "Example"
+                "Example", "item"
                 );
         // Start everything up
         DJaw.main(args);
