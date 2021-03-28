@@ -1,25 +1,3 @@
-# DOCUMENTATION ON CREATING CUSTOM PROJECTS
-## Using DJaw, an engine powered by Java
-
-First off, find your `projects` folder.
-Create a `data.dji` file there first. Learn more about creating `*.dji` [here](https://github.com/Maxuss/djaw/blob/main/format.md)
-Then, create a new package there, it should look something like that:
-```
-djaw
-  |- djaw.jar
-  |- djaw
-  |     |- projects
-        |         |- example-id
-                  |         |- data.dji
-                            |- com.project.djaw
-                            |- everything else
-                            |
-```                                 
-
-Note, that package **HAS TO** end with .djaw. That's the standard.
-
-Then you should create your main class. Here's an example of a class:
-```java
 package com.maxus.djaw.examples.djwen.example.djaw;
 
 import com.maxus.djaw.DJaw;
@@ -37,7 +15,7 @@ public class ExampleClass {
         Engine.Item.Create(
                 "custom-item", "Custom Item Example",
                 "Example"
-        );
+                );
         // Start everything up
         DJaw.main(args);
     }
@@ -56,13 +34,3 @@ public class ExampleClass {
         DJaw.DJMessage("Custom Condition met!", 0);
     }
 }
-```
-Current things specifically for development:
-Whole `Engine` class;
-`DJaw.Condition(String condition)`
-Basically most part of `ProjectCreator` class.
-
-
-If you did everything correctly when you launch djaw.jar, it will send "Hello World!" in console.
-
-That's all for now.

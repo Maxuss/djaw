@@ -34,11 +34,11 @@ public class GUI {
         panel.add(text1);
         panel.add(text2);
         JPanel panel2 = new JPanel();
-        JButton button = new JButton("Got it! Take me to this file!");
+        JButton button = new JButton("Get me to documentation");
         panel2.add(button);
-        JButton button1 = new JButton("I want to configure a small project!");
+        JButton button1 = new JButton("I want to confiп a small project!");
         panel2.add(button1);
-        JButton button2 = new JButton("View available projects");
+        JButton button2 = new JButton("View project configs");
         panel2.add(button2);
         button.addActionListener(e -> {
                     if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {

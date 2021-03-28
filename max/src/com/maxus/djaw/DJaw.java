@@ -1,7 +1,10 @@
 package com.maxus.djaw;
 
+import com.maxus.djaw.examples.djwen.example.djaw.ExampleClass;
 import com.maxus.djaw.gui.GUI;
 import com.maxus.djaw.parse.DJWParser;
+import com.maxus.djaw.engine.Engine;
+import com.maxus.djaw.gui.ProjectCreator;
 
 // main class
 public class DJaw {
@@ -9,8 +12,11 @@ public class DJaw {
     // starting
     public static void main(String[] args){
         DJMessage("Loading DJAW...", 0);
+        Condition("customCondition");
         GUI.createGUI();
         DJWParser.ConnectData();
+        Engine.Start();
+        ProjectCreator.main(args);
     }
 
     /**
@@ -41,6 +47,32 @@ public class DJaw {
         }
         System.out.println(msg_returner);
 
+    }
+    /**
+     * Executes certain codes on different conditions<br>
+     * Mainly made for project's use
+     * @param condition - [str]condition
+     * @see DJaw
+     * @author maxus
+     **/
+    public static void Condition(String condition) {
+        switch(condition){
+            case "guiCreated":
+                // on gui creation
+            case "windowClosed":
+                // on window close
+            case "onLoad":
+                // on djaw load
+            case "onParsing":
+                // on parsing a .dji file
+            case "onFileCreation":
+                // on creating a file
+            case "customCondition":
+                // custom condition
+                ExampleClass.Custom("customCondition");
+            default:
+                // do nothing
+        }
     }
 
 }

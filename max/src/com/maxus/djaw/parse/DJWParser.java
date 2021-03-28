@@ -43,6 +43,22 @@ public class DJWParser {
             return new JSONObject();
         }
     }
+
+    public static JSONObject OldParseDJI()
+    {
+        JSONParser parser = new JSONParser();
+        try {
+            String filename = "/com/maxus/djaw/examples/djwen/data.dji";
+            Object obj = parser.parse(new FileReader(filename));
+            JSONObject file = (JSONObject) obj;
+            String msg = "Loaded DJaw Project using data.dji. ProjectID: " + file.get("projectID").toString();
+            DJaw.DJMessage(msg, 0);
+            return file;
+        } catch (Exception error) {
+            error.printStackTrace();
+            return new JSONObject();
+        }
+    }
     /**
      * <h3>DJaw Outer</h3>
      * Class for storing DJaw Project Data that is basically just.<br>

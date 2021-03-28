@@ -73,7 +73,7 @@ public class Engine {
      * @return GUI
      **/
     public static void Start(){
-
+        DJaw.DJMessage("Starting engine", 0);
     }
     /**
      * <h2>DJaw Engine</h2>

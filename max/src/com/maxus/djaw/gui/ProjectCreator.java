@@ -18,7 +18,7 @@ public class ProjectCreator {
     private static String path = System.getProperty("user.dir");
     private static FileWriter file;
     public static void main(String[] args){
-        createAnotherWindow();
+        DJaw.DJMessage("Loading ProjectCreator...", 0);
     }
     @SuppressWarnings("unchecked")
     public static void dump(
@@ -211,5 +211,10 @@ public class ProjectCreator {
         panel.add(new JLabel(full));
         frame.getContentPane().add(BorderLayout.CENTER,panel);
         frame.setVisible(true);
+    }
+
+    public static void copyDJawProject(){
+        JSONObject copyable = DJWParser.OldParseDJI();
+
     }
 }
