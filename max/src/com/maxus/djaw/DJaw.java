@@ -16,6 +16,7 @@ public class DJaw {
         GUI.createGUI();
         DJWParser.ConnectData();
         ProjectCreator.main(args);
+        DJWParser.createConfig();
     }
 
     /**

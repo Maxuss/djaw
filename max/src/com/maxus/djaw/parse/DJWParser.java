@@ -1,14 +1,19 @@
 package com.maxus.djaw.parse;
 
 import com.maxus.djaw.DJaw;
+import com.maxus.djaw.gui.GUI;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
+
+import static com.maxus.djaw.gui.ProjectCreator.createDirectory;
 
 
 /*
@@ -21,10 +26,11 @@ includes simple json
  */
 public class DJWParser {
     private static final String path = System.getProperty("user.dir");
+    private static FileWriter file;
     public static void main(String[] args){
         DJaw.DJMessage("Loading data from " + path, 0);
     }
-
+    @SuppressWarnings("unused")
     public static JSONObject ParseDJI(String project_name)
     {
         JSONParser parser = new JSONParser();
@@ -60,8 +66,7 @@ public class DJWParser {
     {
         JSONParser parser = new JSONParser();
         try {
-            String filename = filepath;
-            Object obj = parser.parse(new FileReader(filename));
+            Object obj = parser.parse(new FileReader(filepath));
             JSONObject file = (JSONObject) obj;
             String msg = "Loaded DJaw Project using data.dji. ProjectID: " + file.get("projectID").toString();
             DJaw.DJMessage(msg, 0);
@@ -153,5 +158,39 @@ public class DJWParser {
             database.put(current, Data(current));
         }
         return database;
+    }
+
+    public static void createConfig(){
+        try {
+            JSONParser parser = new JSONParser();
+            JSONObject obj = new JSONObject();
+            obj.put("normalMode", "windowed");
+            obj.put("_comment", "FOV in buttons, OR use 'sizeX' and 'sizeY' respectively.");
+            obj.put("mappingFOVX", 4);
+            obj.put("mappingFOVY", 4);
+            File directory = createDirectory(path+"\\djaw\\");
+            System.out.println(directory);
+            File tmp = new File(directory, "config.dji");
+            boolean a = tmp.createNewFile();
+            System.out.println(a);
+            DJaw.DJMessage("Created a JAVA CLASS File!", 0);
+            file = new FileWriter(directory+ "\\config.dji");
+
+            file.write(obj.toJSONString());
+            System.out.println(file);
+            GUI.popup("Done!","Successfully generated a DJI Config!");
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        } finally {
+
+            try {
+                file.flush();
+                file.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 }

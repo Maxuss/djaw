@@ -22,11 +22,12 @@ public class GUI {
         URL iconURL = GUI.class.getResource(pathToIcon);
         ImageIcon icon = new ImageIcon(iconURL);
         DJaw.DJMessage("Loading GUI...", 0);
+
         //create frame
         JFrame frame = new JFrame("DJaw Menu");
         frame.setIconImage(icon.getImage());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(700, 160);
+        frame.setSize(780, 160);
 
         JPanel panel = new JPanel();
         JLabel text1 = new JLabel("You can create a simple project formation! But you have to use coding skills for creating a serious project. ");
