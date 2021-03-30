@@ -115,7 +115,7 @@ public class DJawMapping {
                 return new JLabel(icon);
 
             } catch(NullPointerException e){
-                String[] fillerLocations = {"/com/maxus/djaw/gui/sandFiller.png", "/com/maxus/djaw/gui/grassFiller.png", "/com/maxus/djaw/gui/stoneFiller.png"};
+                String[] fillerLocations = {"/grassFiller.png", "/sandFiller.png", "/stoneFiller.png"};
                 DJaw.DJMessage(e.toString(), 1);
                 Random r = new Random();
                 URL pathss = GUI.class.getResource(fillerLocations[r.nextInt(fillerLocations.length)]);
@@ -142,9 +142,11 @@ public class DJawMapping {
                         }
                     });
                     line.add(temp);
+                    temp.validate();
 
                 }
                 column.add(line);
+                column.validate();
             }
             mainFrame.getContentPane().add(column);
             return mainFrame;
