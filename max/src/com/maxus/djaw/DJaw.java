@@ -11,7 +11,7 @@ import java.io.IOException;
 public class DJaw {
 
     // starting
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
         DJMessage("Loading DJAW...", 0);
         Condition("customCondition");
         GUI.createGUI();

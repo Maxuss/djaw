@@ -36,14 +36,7 @@ public class DJawMapping {
         String[] tilePaths = new String[]{
                 "\\tile1.png", "\\tile2.png", "\\tile3.png", "\\tile4.png", "\\tile5.png", "\\tile6.png"
         };
-        URL iconURL = GUI.class.getResource(pathToIcon);
-        ImageIcon icon = new ImageIcon(iconURL);
-        JFrame frame = new JFrame("Test");
-        frame = TileMap.setupRandomGUIGrid(frame, tilePaths);
-        frame.setIconImage(icon.getImage());
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(500, 500);
-        frame.setVisible(true);
+        SetupMapGUI(tilePaths);
 
         System.out.println(tiles.getSizeX());
         System.out.println(tiles.getSizeY());
@@ -156,7 +149,7 @@ public class DJawMapping {
                             JLabel temp = createTileButton(tmp);
                             temp.addMouseListener(new MouseAdapter() {
                                 public void mouseClicked(MouseEvent me) {
-                                    System.out.println("CLICKED");
+                                    GUI.popup("Tile clicked!", "You clicked the tile with ID of :"+tmp.getName());
                                 }
                             });
                             line.add(temp);
@@ -219,17 +212,17 @@ public class DJawMapping {
             return new Dimension(s, s);
         }
     }
-
-    public static void SetupMapGUI(String[] tilepaths) throws IOException {
+    public static JFrame SetupMapGUI(String[] tilepaths) throws IOException {
         String pathToIcon = "/com/maxus/djaw/gui/icon.png";
         System.out.println(pathToIcon);
         URL iconURL = GUI.class.getResource(pathToIcon);
         ImageIcon icon = new ImageIcon(iconURL);
-        JFrame frame = new JFrame("DJaw Inner Map");
-        frame = TileMap.setupRandomGUIGrid(frame, tilepaths);
+        TileMap tileMap = new TileMap();
+        tileMap.changeSize(10, 10);
+        JFrame frame = tileMap.setupRandomGUIGrid(new JFrame("DJaw Inner Map"), tilepaths);
         frame.setIconImage(icon.getImage());
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(500, 500);
-        frame.setVisible(true);
+        return frame;
     }
 }

@@ -1,16 +1,17 @@
 package com.maxus.djaw.gui;
 
 import com.maxus.djaw.DJaw;
+import com.maxus.djaw.tilesheets.DJawMapping;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.awt.Desktop;
-import java.net.URI;
 
 public class GUI {
-    public static void main(String[] args) {
+    public static void main(String[] args){
         DJaw.DJMessage("GUI SETUP", 0);
         createGUI();
     }
@@ -27,7 +28,7 @@ public class GUI {
         JFrame frame = new JFrame("DJaw Menu");
         frame.setIconImage(icon.getImage());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(780, 160);
+        frame.setSize(1000, 250);
 
         JPanel panel = new JPanel();
         JLabel text1 = new JLabel("You can create a simple project formation! But you have to use coding skills for creating a serious project. ");
@@ -35,6 +36,7 @@ public class GUI {
         panel.add(text1);
         panel.add(text2);
         JPanel panel2 = new JPanel();
+        JPanel panel3 = new JPanel();
         JButton button = new JButton("Get me to documentation");
         panel2.add(button);
         JButton button1 = new JButton("I want to config a small project!");
@@ -42,7 +44,9 @@ public class GUI {
         JButton button2 = new JButton("View project configs");
         panel2.add(button2);
         JButton button3 = new JButton("Generate class for a project");
-        panel2.add(button3);
+        panel3.add(button3);
+        JButton button4 = new JButton("View a custom generated map with some assets");
+        panel3.add(button4);
         button.addActionListener(e -> {
                     if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
                         try {
@@ -55,9 +59,23 @@ public class GUI {
         button1.addActionListener(a -> ProjectCreator.createAnotherWindow());
         button2.addActionListener(event -> ProjectCreator.showAvailableProjects());
         button3.addActionListener(evt -> ProjectCreator.windowCCAP());
+        button4.addActionListener(eventa -> {
+                String[] tilePaths = new String[]{
+                        "\\tile1.png", "\\tile2.png", "\\tile3.png", "\\tile4.png", "\\tile5.png", "\\tile6.png"
+                };
+            JFrame framer = new JFrame();
+            try {
+                framer = DJawMapping.SetupMapGUI(tilePaths);
+            } catch (IOException e) {
+                DJaw.DJMessage(e.toString(), 2);
+            }
+            framer.setVisible(true);
+        });
+
         // compiling
         frame.getContentPane().add(BorderLayout.CENTER, panel);
         frame.getContentPane().add(BorderLayout.SOUTH, panel2);
+        frame.getContentPane().add(BorderLayout.NORTH, panel3);
         frame.setVisible(true);
     }
     public static void popup(String title, String message){

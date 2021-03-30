@@ -3,13 +3,15 @@ package com.maxus.djaw.examples.djwen.example.djaw;
 import com.maxus.djaw.DJaw;
 import com.maxus.djaw.engine.Engine;
 
+import java.io.IOException;
+
 // just for example
 /**
  * @author maxus
  **/
 public class ExampleClass {
     // example
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
         // generate an item
         // item finishes generating only after closing the window for some reason tho
         Engine.Creation.Create(
