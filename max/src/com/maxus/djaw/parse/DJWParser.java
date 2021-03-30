@@ -29,24 +29,25 @@ public class DJWParser {
     private static FileWriter file;
     public static void main(String[] args){
         DJaw.DJMessage("Loading data from " + path, 0);
+        createConfig();
     }
-    @SuppressWarnings("unused")
-    public static JSONObject ParseDJI(String project_name)
-    {
+    public static JSONObject ParseDJI(String project_name) {
+        JSONObject result;
         JSONParser parser = new JSONParser();
         try {
-            String filename = path +"\\djaw\\projects\\"+ project_name + "\\data.dji";
+            String filename = path + "\\djaw\\projects\\" + project_name + "\\data.dji";
             Object obj = parser.parse(new FileReader(filename));
             JSONObject file = (JSONObject) obj;
             String msg = "Loaded DJaw Project using data.dji. ProjectID: " + file.get("projectID").toString();
             DJaw.DJMessage(msg, 0);
-            return file;
+            result = file;
         } catch (Exception error) {
             error.printStackTrace();
-            return new JSONObject();
+            result = new JSONObject();
         }
+        return result;
     }
-
+    @SuppressWarnings("unused")
     public static JSONObject OldParseDJI()
     {
         JSONParser parser = new JSONParser();
@@ -62,6 +63,7 @@ public class DJWParser {
             return new JSONObject();
         }
     }
+    @SuppressWarnings("unused")
     public static JSONObject CustomParseDJI(String filepath)
     {
         JSONParser parser = new JSONParser();
@@ -137,7 +139,6 @@ public class DJWParser {
         for(int i = 0; i < directories.length ; i++){
             dirs[i] = directories[i].getName();
         }
-        System.out.println(dirs[0]);
         String msg = "Found following projects " + Arrays.toString(dirs);
         DJaw.DJMessage(msg, 0);
         return dirs;
@@ -159,38 +160,42 @@ public class DJWParser {
         }
         return database;
     }
+    @SuppressWarnings("unchecked")
+    public static void createConfig() {
+         try {
+             JSONObject obj = new JSONObject();
+             obj.put("normalMode", "windowed");
+             obj.put("_comment", "FOV in buttons, OR use 'sizeX' and 'sizeY' respectively.");
+             obj.put("mappingFOVX", 4);
+             obj.put("mappingFOVY", 4);
+             File directory = createDirectory(path + "\\djaw\\");
+             System.out.println(directory);
+             File tmp = new File(directory, "config.dji");
+             if (!tmp.exists()) {
+                 try {
+                     boolean a = tmp.createNewFile();
+                     System.out.println(a);
+                     DJaw.DJMessage("Created a JAVA CLASS File!", 0);
+                     file = new FileWriter(directory + "\\config.dji");
+                     file.write(obj.toJSONString());
+                     System.out.println(file);
+                     GUI.popup("Done!", "Successfully generated a DJI Config!");
 
-    public static void createConfig(){
-        try {
-            JSONParser parser = new JSONParser();
-            JSONObject obj = new JSONObject();
-            obj.put("normalMode", "windowed");
-            obj.put("_comment", "FOV in buttons, OR use 'sizeX' and 'sizeY' respectively.");
-            obj.put("mappingFOVX", 4);
-            obj.put("mappingFOVY", 4);
-            File directory = createDirectory(path+"\\djaw\\");
-            System.out.println(directory);
-            File tmp = new File(directory, "config.dji");
-            boolean a = tmp.createNewFile();
-            System.out.println(a);
-            DJaw.DJMessage("Created a JAVA CLASS File!", 0);
-            file = new FileWriter(directory+ "\\config.dji");
+                 } catch (IOException e) {
+                     e.printStackTrace();
 
-            file.write(obj.toJSONString());
-            System.out.println(file);
-            GUI.popup("Done!","Successfully generated a DJI Config!");
-        } catch (IOException e) {
-            e.printStackTrace();
+                 } finally {
 
-        } finally {
-
-            try {
-                file.flush();
-                file.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
+                     try {
+                         file.flush();
+                         file.close();
+                     } catch (IOException e) {
+                         e.printStackTrace();
+                     }
+                 }
+             }
+         } catch(IOException er){
+             er.printStackTrace();
+         }
     }
 }

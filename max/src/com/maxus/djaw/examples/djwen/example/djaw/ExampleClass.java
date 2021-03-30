@@ -31,6 +31,6 @@ public class ExampleClass {
     // You can create your own conditions and use them!
     // Just add `case "yourCondition" : -code-`
     public static void Custom(String args){
-        DJaw.DJMessage("Custom Condition met!", 0);
+        DJaw.DJMessage("Custom Condition met!" + args, 0);
     }
 }

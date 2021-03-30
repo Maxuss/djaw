@@ -3,8 +3,9 @@ package com.maxus.djaw;
 import com.maxus.djaw.examples.djwen.example.djaw.ExampleClass;
 import com.maxus.djaw.gui.GUI;
 import com.maxus.djaw.parse.DJWParser;
-import com.maxus.djaw.engine.Engine;
 import com.maxus.djaw.gui.ProjectCreator;
+
+import java.io.IOException;
 
 // main class
 public class DJaw {
@@ -26,23 +27,33 @@ public class DJaw {
      2 for error,
      3 for fatal
     */
+    @SuppressWarnings("unused")
     public static void DJMessage(String message, int type /* 0 for debug, 1 for warn, 2 for error, 3 for fatal*/){
-        String msg_returner;
+        final String reset = "\u001B[0m";
+        final String black = "\u001B[30m";
+        final String red = "\u001B[31m";
+        final String green = "\u001B[32m";
+        final String yellow = "\u001B[33m";
+        final String blue = "\u001B[34m";
+        final String purple = "\u001B[35m";
+        final String cyan = "\u001B[36m";
+        final String white = "\u001B[37m";
+        final String msg_returner;
         switch (type) {
             case 0:
-                msg_returner = "[DJAW] -DEBUG- > " + message;
+                msg_returner = cyan + "[DJAW] -DEBUG- > " + message + reset;
                 break;
             case 1:
-                msg_returner = "[DJAW] -WARNING- > " + message;
+                msg_returner = yellow + "[DJAW] -WARNING- > " + message + reset;
                 break;
             case 2:
-                msg_returner = "[DJAW] -ERROR- > " + message;
+                msg_returner = purple + "[DJAW] -ERROR- > " + message + reset;
                 break;
             case 3:
-                msg_returner = "[DJAW] -FATAL_ERROR- > " + message;
+                msg_returner = red + "[DJAW] -FATAL_ERROR- > " + message + reset;
                 break;
             default:
-                msg_returner = "[DJAW] > " + message;
+                msg_returner = yellow + "[DJAW] > " + message + reset;
                 break;
         }
         System.out.println(msg_returner);

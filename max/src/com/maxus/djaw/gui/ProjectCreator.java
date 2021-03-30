@@ -6,7 +6,6 @@ import java.awt.*;
 import java.io.*;
 import java.net.URL;
 
-import com.maxus.djaw.ParseTypes;
 import com.maxus.djaw.parse.DJWParser;
 import com.maxus.djaw.parse.DJWParser.Portfolio;
 
