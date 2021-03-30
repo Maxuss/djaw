@@ -61,7 +61,7 @@ public class GUI {
         button3.addActionListener(evt -> ProjectCreator.windowCCAP());
         button4.addActionListener(eventa -> {
                 String[] tilePaths = new String[]{
-                        "\\tile1.png", "\\tile2.png", "\\tile3.png", "\\tile4.png", "\\tile5.png", "\\tile6.png"
+                        "/tile1.png", "/tile2.png", "/tile3.png", "/tile4.png", "/tile5.png", "/tile6.png"
                 };
             JFrame framer = new JFrame();
             try {
