@@ -21,8 +21,10 @@ import static com.maxus.djaw.gui.ProjectCreator.createDirectory;
 public class DJawMapping {
     public static final String path = System.getProperty("user.dir");
     public static void main(String[] args) throws IOException {
+        File dir1 = new File ("");
+        System.out.println("current directory: " + dir1.getAbsolutePath());
         TileMap tiles = new TileMap();
-        tiles.changeSize(4, 2);
+        tiles.changeSize(10, 10);
         Map coords = tiles.getCoords(145, 15);
         System.out.println(coords.get("x"));
         System.out.println(coords.get("y"));
@@ -105,45 +107,54 @@ public class DJawMapping {
 
 
 
-        public static JLabel createTileButton(Tile tile) {
+        public static JLabel createTileButton(Tile tile) throws NullPointerException {
             DJaw.DJMessage("Loading Button Image...", 0);
             try {
                 String paths = tile.getIMGPath();
                 System.out.println(paths);
-                URL pathss = GUI.class.getResource(paths);
-                ImageIcon icon = new ImageIcon(pathss);
+                URL iconURL = GUI.class.getResource(paths);
+                ImageIcon icon = new ImageIcon(iconURL);
                 return new JLabel(icon);
 
             } catch(NullPointerException e){
-                String[] fillerLocations = {"/grassFiller.png", "/sandFiller.png", "/stoneFiller.png"};
+                String[] fillerLocations = {"/com/maxus/djaw/images/grassFiller.png", "/com/maxus/djaw/images/sandFiller.png", "/com/maxus/djaw/images/stoneFiller.png",
+                "/com/maxus/djaw/images/null.png"};
                 DJaw.DJMessage(e.toString(), 1);
                 Random r = new Random();
-                URL pathss = GUI.class.getResource(fillerLocations[r.nextInt(fillerLocations.length)]);
-                System.out.println(fillerLocations[r.nextInt(fillerLocations.length)]);
-                ImageIcon icon = new ImageIcon(pathss);
+
+                URL iconURLS = GUI.class.getResource(fillerLocations[r.nextInt(fillerLocations.length)]);
+                System.out.println(iconURLS);
+                ImageIcon icon = new ImageIcon(iconURLS);
                 return new JLabel(icon);
             }
 
         };
 
-        public static JFrame setupGUIGrid(JFrame mainFrame) throws IOException {
+        public static JFrame setupGUIGrid(JFrame mainFrame) throws IOException, NullPointerException {
             JPanel column = new JPanel();
             for (int i = 0; i < sizeY; i++) {
                 JPanel line = new JPanel();
                 line.setOpaque(false);
                 for (int aa = 0; aa < sizeX; aa++) {
-                    String aas = String.valueOf(new Integer(aa));
-                    Tile tmp = new Tile("filler");
-                    tmp.$reinit("", "\\djaw\\tiles\\" + tmp.tiletype + ".png");
-                    JLabel temp = createTileButton(tmp);
-                    temp.addMouseListener(new MouseAdapter() {
-                        public void mouseClicked(MouseEvent me) {
-                            System.out.println("CLICKED");
+                    try {
+                        String aas = String.valueOf(new Integer(aa));
+                        Tile tmp = new Tile("filler");
+                        tmp.$reinit("tmp","/com/maxus/djaw/images/nul.png");
+                        if(!tmp.getIMGPath().isEmpty()) {
+                            JLabel temp = createTileButton(tmp);
+                            temp.addMouseListener(new MouseAdapter() {
+                                public void mouseClicked(MouseEvent me) {
+                                    System.out.println("CLICKED");
+                                }
+                            });
+                            line.add(temp);
+                            temp.validate();
+                        } else {
+                            throw new NullPointerException("Tile is empty!");
                         }
-                    });
-                    line.add(temp);
-                    temp.validate();
-
+                    } catch(NullPointerException e){
+                        e.printStackTrace();
+                    }
                 }
                 column.add(line);
                 column.validate();
@@ -176,7 +187,7 @@ public class DJawMapping {
          **/
         public static void $reinit(String tileName, String tilesIMGPath){
             tilename = tileName;
-            tileIMGPath = path + tilesIMGPath;
+            tileIMGPath = tilesIMGPath;
         }
     }
 }
