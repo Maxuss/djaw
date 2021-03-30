@@ -3,9 +3,11 @@ package com.maxus.djaw.tilesheets;
 import com.maxus.djaw.DJaw;
 
 import com.maxus.djaw.gui.GUI;
+import com.maxus.djaw.parse.DJWParser;
 import org.json.simple.JSONObject;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -31,11 +33,13 @@ public class DJawMapping {
 
         String pathToIcon = "/com/maxus/djaw/gui/icon.png";
         System.out.println(pathToIcon);
-
+        String[] tilePaths = new String[]{
+                "\\tile1.png", "\\tile2.png", "\\tile3.png", "\\tile4.png", "\\tile5.png", "\\tile6.png"
+        };
         URL iconURL = GUI.class.getResource(pathToIcon);
         ImageIcon icon = new ImageIcon(iconURL);
         JFrame frame = new JFrame("Test");
-        frame = TileMap.setupGUIGrid(frame);
+        frame = TileMap.setupRandomGUIGrid(frame, tilePaths);
         frame.setIconImage(icon.getImage());
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(500, 500);
@@ -117,12 +121,9 @@ public class DJawMapping {
                 return new JLabel(icon);
 
             } catch(NullPointerException e){
-                String[] fillerLocations = {"/com/maxus/djaw/images/grassFiller.png", "/com/maxus/djaw/images/sandFiller.png", "/com/maxus/djaw/images/stoneFiller.png",
-                "/com/maxus/djaw/images/null.png"};
                 DJaw.DJMessage(e.toString(), 1);
-                Random r = new Random();
 
-                URL iconURLS = GUI.class.getResource(fillerLocations[r.nextInt(fillerLocations.length)]);
+                URL iconURLS = GUI.class.getResource("/com/maxus/djaw/images/null.png");
                 System.out.println(iconURLS);
                 ImageIcon icon = new ImageIcon(iconURLS);
                 return new JLabel(icon);
@@ -130,16 +131,27 @@ public class DJawMapping {
 
         };
 
-        public static JFrame setupGUIGrid(JFrame mainFrame) throws IOException, NullPointerException {
-            JPanel column = new JPanel();
-            for (int i = 0; i < sizeY; i++) {
+        public static JFrame setupRandomGUIGrid(JFrame mainFrame, String[] tilePaths) throws IOException, NullPointerException {
+            JSONObject configData = DJWParser.parseConfig();
+            long configFOVX = (long) configData.get("mappingFOVX");
+            long configFOVY = (long) configData.get("mappingFOVY");
+            long trueFOVX = configFOVX + 1;
+            long trueFOVY = configFOVY + 1;
+
+            JPanel innerGUI = new JPanel(new GridBagLayout());
+            innerGUI.setBackground(Color.WHITE);
+            DJawMapPanel map = new DJawMapPanel();
+            map.setBackground(Color.LIGHT_GRAY);
+            map.setBorder(BorderFactory.createLineBorder(Color.black));
+            for (int y = 0; y < sizeY && y < trueFOVY; y++) {
                 JPanel line = new JPanel();
                 line.setOpaque(false);
-                for (int aa = 0; aa < sizeX; aa++) {
+                for (int x = 0; x < sizeX && x < trueFOVX; x++) {
                     try {
-                        String aas = String.valueOf(new Integer(aa));
                         Tile tmp = new Tile("filler");
-                        tmp.$reinit("tmp","/com/maxus/djaw/images/nul.png");
+                        Random r = new Random();
+                        String truepath = tilePaths[r.nextInt(tilePaths.length)];
+                        tmp.$reinit("tmp",path + "\\djaw\\img\\tiles"+truepath);
                         if(!tmp.getIMGPath().isEmpty()) {
                             JLabel temp = createTileButton(tmp);
                             temp.addMouseListener(new MouseAdapter() {
@@ -156,10 +168,10 @@ public class DJawMapping {
                         e.printStackTrace();
                     }
                 }
-                column.add(line);
-                column.validate();
+                map.add(line);
+                innerGUI.add(map);
             }
-            mainFrame.getContentPane().add(column);
+            mainFrame.getContentPane().add(BorderLayout.CENTER, innerGUI);
             return mainFrame;
         }
     }
@@ -189,5 +201,35 @@ public class DJawMapping {
             tilename = tileName;
             tileIMGPath = tilesIMGPath;
         }
+    }
+    public static class DJawMapPanel extends JPanel {
+
+        @Override
+        public Dimension getPreferredSize() {
+            Dimension d = super.getPreferredSize();
+            Container c = getParent();
+            if (c != null) {
+                d = c.getSize();
+            } else {
+                return new Dimension(10, 10);
+            }
+            int w = (int) d.getWidth();
+            int h = (int) d.getHeight();
+            int s = (w < h ? w : h);
+            return new Dimension(s, s);
+        }
+    }
+
+    public static void SetupMapGUI(String[] tilepaths) throws IOException {
+        String pathToIcon = "/com/maxus/djaw/gui/icon.png";
+        System.out.println(pathToIcon);
+        URL iconURL = GUI.class.getResource(pathToIcon);
+        ImageIcon icon = new ImageIcon(iconURL);
+        JFrame frame = new JFrame("DJaw Inner Map");
+        frame = TileMap.setupRandomGUIGrid(frame, tilepaths);
+        frame.setIconImage(icon.getImage());
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(500, 500);
+        frame.setVisible(true);
     }
 }

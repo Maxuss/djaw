@@ -5,10 +5,7 @@ import com.maxus.djaw.gui.GUI;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
@@ -70,8 +67,8 @@ public class DJWParser {
         try {
             Object obj = parser.parse(new FileReader(filepath));
             JSONObject file = (JSONObject) obj;
-            String msg = "Loaded DJaw Project using data.dji. ProjectID: " + file.get("projectID").toString();
-            DJaw.DJMessage(msg, 0);
+            String msg = "Loaded DJaw DJI File from " + filepath;
+            DJaw.DJMessage(msg, 9);
             return file;
         } catch (Exception error) {
             error.printStackTrace();
@@ -197,5 +194,19 @@ public class DJWParser {
          } catch(IOException er){
              er.printStackTrace();
          }
+    }
+    public static JSONObject parseConfig()
+    {
+        JSONParser parser = new JSONParser();
+        try {
+            Object obj = parser.parse(new FileReader(path + "\\djaw\\config.dji"));
+            JSONObject file = (JSONObject) obj;
+            String msg = "Loaded DJaw Configurations file!";
+            DJaw.DJMessage(msg, 9);
+            return file;
+        } catch (Exception error) {
+            error.printStackTrace();
+            return new JSONObject();
+        }
     }
 }
