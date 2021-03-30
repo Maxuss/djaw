@@ -179,7 +179,7 @@ public class DJawMapping {
 
                 frame.setIconImage(icon.getImage());
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setSize(500, 500);
+                frame.setSize(600, 600);
                 frame.setVisible(true);
                 mainFrame.dispose();
             });
