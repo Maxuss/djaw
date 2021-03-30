@@ -36,7 +36,7 @@ public class DJawMapping {
         String[] tilePaths = new String[]{
                 "\\tile1.png", "\\tile2.png", "\\tile3.png", "\\tile4.png", "\\tile5.png", "\\tile6.png"
         };
-        SetupMapGUI(tilePaths);
+        tiles.setupRandomGUIGrid((new JFrame("test")), tilePaths);
 
         System.out.println(tiles.getSizeX());
         System.out.println(tiles.getSizeY());
@@ -144,7 +144,7 @@ public class DJawMapping {
                         Tile tmp = new Tile("filler");
                         Random r = new Random();
                         String truepath = tilePaths[r.nextInt(tilePaths.length)];
-                        tmp.$reinit("tmp",path + "\\djaw\\img\\tiles"+truepath);
+                        tmp.$reinit("tmp",path + "\\djaw\\tiles"+truepath);
                         if(!tmp.getIMGPath().isEmpty()) {
                             JLabel temp = createTileButton(tmp);
                             temp.addMouseListener(new MouseAdapter() {
@@ -174,7 +174,7 @@ public class DJawMapping {
         public static String tiletype;
         public static String tilename; // id
         File directory = createDirectory(path+"\\djaw\\tiles\\");
-        public static String tileIMGPath = path + tilename; // path to img
+        public static String tileIMGPath = path + "\\djaw\\tiles\\" + tilename + ".png"; // path to img
 
         public Tile(String tileType) throws IOException {
             tiletype = tileType;

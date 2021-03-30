@@ -5,13 +5,11 @@ import com.maxus.djaw.gui.GUI;
 import com.maxus.djaw.parse.DJWParser;
 import com.maxus.djaw.gui.ProjectCreator;
 
-import java.io.IOException;
-
 // main class
 public class DJaw {
 
     // starting
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args)  {
         DJMessage("Loading DJAW...", 0);
         Condition("customCondition");
         GUI.createGUI();
