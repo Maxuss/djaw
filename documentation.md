@@ -1,6 +1,7 @@
-# DOCUMENTATION ON CREATING CUSTOM PROJECTS
-## Using DJaw, an engine powered by Java
+# Documentation on working with DJaw
 
+
+## Formatting a project
 First off, find your `projects` folder.
 Create a `data.dji` file there first. Learn more about creating `*.dji` [here](https://github.com/Maxuss/djaw/blob/main/format.md)
 Then, create a new package there, it should look something like that:
@@ -16,51 +17,9 @@ djaw
                             |
 ```                                 
 
-Note, that package **HAS TO** end with .djaw. That's the standard.
+Note, that package **HAS TO** end with .djaw. That's the _DJDAS_ standard.
 
-Then you should create your main class. Here's an example of a class:
-```java
-package com.maxus.djaw.examples.djwen.example.djaw;
-
-import com.maxus.djaw.DJaw;
-import com.maxus.djaw.engine.Engine;
-
-// just for example
-/**
- * @author maxus
- **/
-public class ExampleClass {
-    // example
-    public static void main(String[] args){
-        // generate an item
-        // item finishes generating only after closing the window for some reason tho
-        Engine.Item.Create(
-                "custom-item", "Custom Item Example",
-                "Example"
-        );
-        // Start everything up
-        DJaw.main(args);
-    }
-    // Does something each time condition met.
-    // Requires you to change the in-engine method `Condition`.
-    // It can be found at DJaw Class
-    // Possible conditions
-    // "guiCreated" - on gui creation
-    // "windowClosed" - on gui close
-    // "onLoad" - on djaw load
-    // "onParsing" - on parsing a file
-    // "onFileCreation" - on creation of file
-    // You can create your own conditions and use them!
-    // Just add `case "yourCondition" : -code-`
-    public static void Custom(String args){
-        DJaw.DJMessage("Custom Condition met!", 0);
-    }
-}
-```
-Current things specifically for development:
-Whole `Engine` class;
-`DJaw.Condition(String condition)`
-Basically most part of `ProjectCreator` class.
+Then you should create your main class.
 
 
 If you did everything correctly when you launch djaw.jar, it will send "Hello World!" in console.
