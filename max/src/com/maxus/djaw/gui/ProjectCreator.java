@@ -122,7 +122,7 @@ public class ProjectCreator {
         frame.setSize(1200, 500);
         JPanel panel = new JPanel();
 
-        JLabel label = new JLabel("Note: ID should use '-' instead of spaces");
+        JLabel label = new JLabel("Note: ID should use '_' instead of spaces");
         JTextField name = new JTextField("Name(Test Project)", 20);
         JTextField description = new JTextField("Description(some description)", 60);
         JTextField creatorName = new JTextField("Creator(Maksim 'Maxuss' Petrov)", 30);
