@@ -18,8 +18,9 @@ public class ProjectCreator {
     private static final String path = System.getProperty("user.dir");
     private static FileWriter file;
     public static void main(String[] args){
+        DJaw.DJawLogger.INFO("Loading DJaw ProjectCreator...", DJaw.log);
         DJaw.DJMessage("Loading ProjectCreator...", 0);
-        createClassAndPackage("com.test.lol", "ClassExample", "test_project");
+        throw new com.maxus.djaw.io.DeadEndException("DEAD_END_001", new Error());
     }
     @SuppressWarnings("unchecked")
     public static JSONObject ESObjDump(
@@ -46,7 +47,7 @@ public class ProjectCreator {
         )
     {
         JSONObject obj = new JSONObject();
-
+        DJaw.DJawLogger.INFO("Dumping data into object...", DJaw.log);
         obj.put("normalSignature", "classical_unstable");
         obj.put("dunjerCache", false);
         obj.put("djawCache", false);
@@ -78,7 +79,7 @@ public class ProjectCreator {
             String filename
         ){
         JSONObject obj = objDump(name, description, creator, ID, packageName, mainClass, credits, website, version, language);
-
+        DJaw.DJawLogger.INFO("Dumping object into... well another object", DJaw.log);
         try {
             File directory = createDirectory(path+"\\djaw\\projects\\"+filename+"\\");
             System.out.println(directory);
@@ -112,6 +113,7 @@ public class ProjectCreator {
         throw new IOException("Failed to create directory '" + dir.getAbsolutePath() + "' for an unknown reason.");
     }
     public static void createAnotherWindow(){
+        DJaw.DJawLogger.INFO("Creating another window...", DJaw.log);
         String pathToIcon = "/com/maxus/djaw/gui/icon.png";
         URL iconURL = GUI.class.getResource(pathToIcon);
         ImageIcon icon = new ImageIcon(iconURL);
@@ -171,7 +173,7 @@ public class ProjectCreator {
         frame.getContentPane().add(BorderLayout.SOUTH, panel1);
         frame.getContentPane().add(BorderLayout.NORTH, panel2);
         frame.setVisible(true);
-
+        DJaw.DJawLogger.INFO("Created another window!", DJaw.log);
     }
     public static void showAvailableProjects() throws NullPointerException {
         String pathToIcon = "/com/maxus/djaw/gui/icon.png";
@@ -217,6 +219,7 @@ public class ProjectCreator {
     }
 
     public static void openFileConfig(String projectName){
+        DJaw.DJawLogger.INFO("Parsing config...", DJaw.log);
         Map map = DJWParser.ConnectData();
         Portfolio data = (Portfolio) map.get(projectName);
 
@@ -237,6 +240,7 @@ public class ProjectCreator {
         frame.setVisible(true);
     }
     public static void windowCCAP(){
+        DJaw.DJawLogger.INFO("Creating class creator window", DJaw.log);
         String pathToIcon = "/com/maxus/djaw/gui/icon.png";
         URL iconURL = GUI.class.getResource(pathToIcon);
         ImageIcon icon = new ImageIcon(iconURL);
@@ -271,12 +275,13 @@ public class ProjectCreator {
         frame.getContentPane().add(BorderLayout.CENTER, panel2);
         frame.setVisible(true);
     }
-
-    public static void createClassAndPackage(String packageName, String className, String projectID){
+    @SuppressWarnings("all")
+    public static void createClassAndPackage(String packageName, String className, String projectID) throws com.maxus.djaw.io.IOException {
+        DJaw.DJawLogger.INFO("Starting creating a class for project " + projectID, DJaw.log);
         String full = "\\src\\" + packageName.replace(".","\\");
 
         String SampleCode =  "package djaw.projects." + projectID + "." + packageName + ";\nimport com.maxus.djaw.DJaw;\n//TODO Auto-Generated file\npublic static class "+className+"{\n  public static void main(String[] args){\n    }\n}";
-
+        DJaw.DJawLogger.INFO("Dumping following code: <" + SampleCode + ">", DJaw.log);
         try {
             File directory = createDirectory(path+"\\djaw\\projects\\"+projectID);
             System.out.println(directory);
@@ -291,15 +296,15 @@ public class ProjectCreator {
             System.out.println(file);
             GUI.popup("Done!","Successfully generated a class and package for "+projectID);
         } catch (IOException e) {
-            e.printStackTrace();
-
+            throw new com.maxus.djaw.io.IOException(e.fillInStackTrace().getMessage(), e);
         } finally {
 
             try {
                 file.flush();
                 file.close();
+                DJaw.DJawLogger.INFO("Finished creating class!", DJaw.log);
             } catch (IOException e) {
-                e.printStackTrace();
+                throw new com.maxus.djaw.io.IOException(e.fillInStackTrace().getMessage(), e);
             }
         }
     }

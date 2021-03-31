@@ -9,6 +9,7 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.logging.Logger;
 
 import static com.maxus.djaw.gui.ProjectCreator.createDirectory;
 
@@ -29,6 +30,7 @@ public class DJWParser {
         createConfig();
     }
     public static JSONObject ParseDJI(String project_name) {
+        DJaw.DJawLogger.INFO("Started parsing DJI of project " + project_name, DJaw.log);
         JSONObject result;
         JSONParser parser = new JSONParser();
         try {
@@ -45,24 +47,9 @@ public class DJWParser {
         return result;
     }
     @SuppressWarnings("unused")
-    public static JSONObject OldParseDJI()
-    {
-        JSONParser parser = new JSONParser();
-        try {
-            String filename = "/com/maxus/djaw/examples/djwen/data.dji";
-            Object obj = parser.parse(new FileReader(filename));
-            JSONObject file = (JSONObject) obj;
-            String msg = "Loaded DJaw Project using data.dji. ProjectID: " + file.get("projectID").toString();
-            DJaw.DJMessage(msg, 0);
-            return file;
-        } catch (Exception error) {
-            error.printStackTrace();
-            return new JSONObject();
-        }
-    }
-    @SuppressWarnings("unused")
     public static JSONObject CustomParseDJI(String filepath)
     {
+        DJaw.DJawLogger.INFO("Started parsing DJI of file from path " + filepath, DJaw.log);
         JSONParser parser = new JSONParser();
         try {
             Object obj = parser.parse(new FileReader(filepath));

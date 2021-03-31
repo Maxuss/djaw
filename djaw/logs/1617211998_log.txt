@@ -1,0 +1,12 @@
+мар 31, 2021 8:33:18 PM com.maxus.djaw.DJaw$DJawLogger startLog
+INFO: --__--__--__--__--__--__--__--__--__--__--
+мар 31, 2021 8:33:18 PM com.maxus.djaw.DJaw$DJawLogger startLog
+INFO: Woops! Looks like something bad happened!
+мар 31, 2021 8:33:18 PM com.maxus.djaw.DJaw$DJawLogger startLog
+INFO: --__--__--__--__--__--__--__--__--__--__--
+мар 31, 2021 8:33:18 PM com.maxus.djaw.DJaw$DJawLogger startLog
+INFO: Starting logging session...
+мар 31, 2021 8:33:20 PM com.maxus.djaw.DJaw$DJawLogger INFO
+INFO: Started parsing DJI of project porject_id
+мар 31, 2021 8:33:20 PM com.maxus.djaw.DJaw$DJawLogger INFO
+INFO: Starting DJaw!

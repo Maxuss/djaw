@@ -1,0 +1,26 @@
+мар 31, 2021 8:33:45 PM com.maxus.djaw.DJaw$DJawLogger startLog
+INFO: --__--__--__--__--__--__--__--__--__--__--
+мар 31, 2021 8:33:45 PM com.maxus.djaw.DJaw$DJawLogger startLog
+INFO: Woops! Looks like something bad happened!
+мар 31, 2021 8:33:45 PM com.maxus.djaw.DJaw$DJawLogger startLog
+INFO: --__--__--__--__--__--__--__--__--__--__--
+мар 31, 2021 8:33:45 PM com.maxus.djaw.DJaw$DJawLogger startLog
+INFO: Starting logging session...
+мар 31, 2021 8:33:47 PM com.maxus.djaw.DJaw$DJawLogger INFO
+INFO: Started parsing DJI of project porject_id
+мар 31, 2021 8:33:47 PM com.maxus.djaw.DJaw$DJawLogger INFO
+INFO: Starting DJaw!
+мар 31, 2021 8:33:49 PM com.maxus.djaw.DJaw$DJawLogger INFO
+INFO: Creating Map GUI...
+мар 31, 2021 8:33:49 PM com.maxus.djaw.DJaw$DJawLogger INFO
+INFO: Creating a GUI Map...
+мар 31, 2021 8:33:50 PM com.maxus.djaw.DJaw$DJawLogger INFO
+INFO: Creating a GUI Map...
+мар 31, 2021 8:33:51 PM com.maxus.djaw.DJaw$DJawLogger INFO
+INFO: Creating a GUI Map...
+мар 31, 2021 8:33:51 PM com.maxus.djaw.DJaw$DJawLogger INFO
+INFO: Creating a GUI Map...
+мар 31, 2021 8:33:52 PM com.maxus.djaw.DJaw$DJawLogger INFO
+INFO: Creating a GUI Map...
+мар 31, 2021 8:33:52 PM com.maxus.djaw.DJaw$DJawLogger INFO
+INFO: Creating a GUI Map...

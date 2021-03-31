@@ -99,6 +99,7 @@ public class DJawMapping {
         }
 
         public static JFrame setupRandomGUIGrid(JFrame mainFrame, String[] tilePaths) throws IOException, NullPointerException {
+            DJaw.DJawLogger.INFO("Creating a GUI Map...", DJaw.log);
             JSONObject configData = DJWParser.parseConfig();
             long configFOVX = (long) configData.get("mappingFOVX");
             long configFOVY = (long) configData.get("mappingFOVY");
@@ -144,7 +145,8 @@ public class DJawMapping {
                 try {
                     setupRandomGUIGrid(frame, tilePaths);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    DJaw.DJawLogger.ERROR("ERROR OCCURRED! " + e.toString(), DJaw.log);
+                    throw new com.maxus.djaw.io.IOException(e.fillInStackTrace().getLocalizedMessage(), e);
                 }
                 String pathToIcon = "/com/maxus/djaw/gui/icon.png";
                 URL iconURL = GUI.class.getResource(pathToIcon);
@@ -152,7 +154,7 @@ public class DJawMapping {
                 DJaw.DJMessage("Loading GUI...", 0);
 
                 frame.setIconImage(icon.getImage());
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 frame.setSize(600, 600);
                 frame.setVisible(true);
                 mainFrame.dispose();
@@ -213,6 +215,7 @@ public class DJawMapping {
         }
     }
     public static JFrame SetupMapGUI(String[] tilepaths) throws IOException {
+        DJaw.DJawLogger.INFO("Creating Map GUI...", DJaw.log);
         String pathToIcon = "/com/maxus/djaw/gui/icon.png";
         System.out.println(pathToIcon);
         URL iconURL = GUI.class.getResource(pathToIcon);
