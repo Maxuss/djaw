@@ -16,6 +16,7 @@ DungeonJaw or DJaw is Game Engine based on Java.
 
 ### Main formatting
 First off, find your `projects` folder.
+
 Create a `data.dji` file there first.
 #### Creating Data DJI
 
@@ -23,6 +24,7 @@ Create a `data.dji` file there first.
 DONE
 
 You need only one JSON-like file to create.
+
 Go to `projects/<projectname>/` and create file `data.dji`
 
 What does `.dji` mean? **DJ**aw **I**nformation of course!
@@ -95,6 +97,7 @@ Going to be used in future releases
 "package"
 ```
 Package for your project to be generated.
+
 Everything else that starts with `project` is just data that shows up
 
 ### Creating a package and class
@@ -112,13 +115,17 @@ djaw
 ```                                 
 
 Note, that package **HAS TO** end with .djaw. That's the _DJDAS_ standard.
+
 Then you should create your main class.
 
 It should look like that:
 ![img.png](img.png)
 *ignore the yellow highlight*
+
 You can also use pre-built simple project generator.
+
 You should use `DJLib.jar` as external library for creating DJaw projects. Example:
+
 ```java
 import com.maxus.djaw.*;
 import static com.maxus.djaw.DJaw.DJawLogger;
@@ -128,19 +135,28 @@ You'll figure out I guess.
 ## Using and compiling a project
 
 Let's say you have made a project.
+
 You should download DJDK.zip and unzip files in some directory.
+
 What does DJDK Stand for? *DJ*aw *D*eveloping *K*it!
+
 Locate to `src/com/maxus/djaw/projects` and paste whole project folder there.
+
 Should look like this:
 ![img_1.png](img_1.png)
 
 And now just modify the `DJaw.java` to import your DJaw Project and to use your features.
+
 Now you can compile and run it!
 
 ## DJaw Development API Standards
+
 _DJDAS_ Or *DJ*aw *D*evelopment *A*PI *S*tandards
+
 _DJDAS_ are Standards in developing using DJaw.
+
 _DJDAS_ aren't necessary, but code looks better with them
+
 
 ### Current version: **DJDAS 258**
 1. Project ids HAVE to use `_` instead of ` `.
