@@ -19,28 +19,10 @@ import java.util.TreeMap;
 import static com.maxus.djaw.gui.ProjectCreator.createDirectory;
 
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class DJawMapping {
     public static final String path = System.getProperty("user.dir");
-    public static void main(String[] args) throws IOException {
-        File dir1 = new File ("");
-        System.out.println("current directory: " + dir1.getAbsolutePath());
-        TileMap tiles = new TileMap();
-        tiles.changeSize(10, 10);
-        Map coords = tiles.getCoords(145, 15);
-        System.out.println(coords.get("x"));
-        System.out.println(coords.get("y"));
-
-        String pathToIcon = "/com/maxus/djaw/gui/icon.png";
-        System.out.println(pathToIcon);
-        String[] tilePaths = new String[]{
-                "/tile1.png", "/tile2.png", "/tile3.png", "/tile4.png", "/tile5.png", "/tile6.png"
-        };
-        JFrame framer = tiles.setupRandomGUIGrid((new JFrame("test")), tilePaths);
-        framer.setVisible(true);
-        System.out.println(tiles.getSizeX());
-        System.out.println(tiles.getSizeY());
-    }
+    public static void main(String[] args) { }
     /**
      * Main class for mapping
      * @author maxus
@@ -89,16 +71,8 @@ public class DJawMapping {
         public static Map getCoords(int x, int y){
             Map coordsIndex = new TreeMap();
 
-            if(x>sizeX){
-                coordsIndex.put("x", sizeX);
-            } else {
-                coordsIndex.put("x", x);
-            }
-            if(y>sizeY){
-                coordsIndex.put("y", sizeY);
-            } else{
-                coordsIndex.put("y", y);
-            }
+            coordsIndex.put("x", Math.min(x, sizeX));
+            coordsIndex.put("y", Math.min(y, sizeY));
             return coordsIndex;
         }
 
@@ -107,7 +81,7 @@ public class DJawMapping {
         public static JLabel createTileButton(Tile tile) throws NullPointerException {
             DJaw.DJMessage("Loading Button Image...", 0);
             try {
-                String paths = tile.getIMGPath();
+                String paths = Tile.getIMGPath();
                 System.out.println(paths);
                 URL iconURL = GUI.class.getResource(paths);
                 ImageIcon icon = new ImageIcon(iconURL);
@@ -122,7 +96,7 @@ public class DJawMapping {
                 return new JLabel(icon);
             }
 
-        };
+        }
 
         public static JFrame setupRandomGUIGrid(JFrame mainFrame, String[] tilePaths) throws IOException, NullPointerException {
             JSONObject configData = DJWParser.parseConfig();
@@ -144,8 +118,8 @@ public class DJawMapping {
                         Tile tmp = new Tile("filler");
                         Random r = new Random();
                         String truepath = tilePaths[r.nextInt(tilePaths.length)];
-                        tmp.$reinit("temp","/com/maxus/djaw/images"+truepath);
-                        if(!tmp.getIMGPath().isEmpty()) {
+                        Tile.$reinit("temp","/com/maxus/djaw/images"+truepath);
+                        if(!Tile.getIMGPath().isEmpty()) {
                             JLabel temp = createTileButton(tmp);
                             temp.addMouseListener(new MouseAdapter() {
                                 public void mouseClicked(MouseEvent me) {
@@ -168,7 +142,7 @@ public class DJawMapping {
             button.addActionListener(a -> {
                 JFrame frame = new JFrame();
                 try {
-                    frame = setupRandomGUIGrid(frame, tilePaths);
+                    setupRandomGUIGrid(frame, tilePaths);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -207,7 +181,7 @@ public class DJawMapping {
             tileIMGPath = path + tilename;
         }
 
-        public static String getName(){ return tilename; };
+        public static String getName(){ return tilename; }
         public static String getIMGPath(){ return tileIMGPath;}
 
 
@@ -222,7 +196,7 @@ public class DJawMapping {
         }
     }
     public static class DJawMapPanel extends JPanel {
-
+        @SuppressWarnings("all")
         @Override
         public Dimension getPreferredSize() {
             Dimension d = super.getPreferredSize();
@@ -234,7 +208,7 @@ public class DJawMapping {
             }
             int w = (int) d.getWidth();
             int h = (int) d.getHeight();
-            int s = (w < h ? w : h);
+            int s = (Math.min(w, h));
             return new Dimension(s, s);
         }
     }
@@ -243,9 +217,8 @@ public class DJawMapping {
         System.out.println(pathToIcon);
         URL iconURL = GUI.class.getResource(pathToIcon);
         ImageIcon icon = new ImageIcon(iconURL);
-        TileMap tileMap = new TileMap();
-        tileMap.changeSize(10, 10);
-        JFrame frame = tileMap.setupRandomGUIGrid(new JFrame("DJaw Inner Map"), tilepaths);
+        TileMap.changeSize(10, 10);
+        JFrame frame = TileMap.setupRandomGUIGrid(new JFrame("DJaw Inner Map"), tilepaths);
         frame.setIconImage(icon.getImage());
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(600, 600);
