@@ -56,10 +56,6 @@ public class ProjectCreator {
         obj.put("mainClass", mainClass);
         obj.put("exceptionClass", null);
         obj.put("modifyInnerCode", false);
-        obj.put("standardRunConfig", "windowed");
-        obj.put("acceleration", false);
-        obj.put("createLocalData", false);
-        obj.put("localDataPath", null);
         obj.put("package", packageName);
         obj.put("leaveSignature", false);
         obj.put("logConsole", false);

@@ -50,7 +50,7 @@ public class GUI {
         button.addActionListener(e -> {
                     if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
                         try {
-                            Desktop.getDesktop().browse(new URI("https://github.com/Maxuss/djaw/blob/main/documentation.md"));
+                            Desktop.getDesktop().browse(new URI("https://github.com/Maxuss/djaw/blob/main/README.md"));
                         } catch (IOException | URISyntaxException ioException) {
                             ioException.printStackTrace();
                         }
